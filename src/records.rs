@@ -28,3 +28,4 @@ pub fn update_record(id: i32) -> JsonValue {
 pub fn delete_record(_id: i32) -> status::NoContent {
     status::NoContent
 }
+

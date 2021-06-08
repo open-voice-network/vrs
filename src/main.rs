@@ -2,6 +2,7 @@
 #[macro_use] extern crate rocket_contrib;
 
 mod records;
+mod utils;
 
 #[rocket::main]
 async fn main(){
@@ -13,6 +14,7 @@ async fn main(){
             records::update_record,
             records::delete_record
         ])
+        .register("/", catchers![utils::not_found])
         .launch()
         .await;
 }
