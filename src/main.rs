@@ -8,7 +8,10 @@ async fn main(){
     let _ = rocket::build()
         .mount("/",routes![
             records::get_records,
-            records::create_record
+            records::get_records_by_id,
+            records::create_record,
+            records::update_record,
+            records::delete_record
         ])
         .launch()
         .await;
