@@ -1,9 +1,6 @@
 use rocket::response::status;
 use rocket_contrib::json::JsonValue;
 
-//TODO: use the swagger
-
-
 #[get("/records")]
 pub fn get_records() -> JsonValue {
     json!([{"id": 1, "name":"Jane Smith"}, {"id": 2, "name":"Jose Brinas"}])
@@ -28,4 +25,3 @@ pub fn update_record(id: i32) -> JsonValue {
 pub fn delete_record(_id: i32) -> status::NoContent {
     status::NoContent
 }
-
