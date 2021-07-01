@@ -1,4 +1,7 @@
-FROM docker/whalesay:latest
-LABEL Name=vrs Version=0.0.1
-RUN apt-get -y update && apt-get install -y fortunes
-CMD ["sh", "-c", "/usr/games/fortune -a | cowsay"]
+FROM rust:slim
+COPY . /build-vrs/
+RUN cd /build-vrs/ && rustup default nightly && rustup update && cargo build --release
+LABEL Name=VRS Version=0.0.1
+EXPOSE 8000
+ENV ROCKET_ENV=stage
+CMD ["/build-vrs/target/release/vrs"]
