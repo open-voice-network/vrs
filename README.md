@@ -35,9 +35,14 @@ OR
 cargo watch -x run
 ```
 
-## Docker Build
+## Docker build and run
 
 ```sh
-cargo build
-docker 
+docker build --progress=plain --tag open-voice-network/vrs:0.0.1 .
+docker run -p 8000:8000 open-voice-network/vrs:0.0.1
 ```
+
+Once the VRS container is running, check out the following URLs:
+
+- <localhost:8000>
+- <localhost:8000/records>
