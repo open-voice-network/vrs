@@ -22,7 +22,7 @@ VRS documentation, please see [here](https://github.com/open-voice-network/docs/
     $ cargo install cargo-watch
   ```
 
-## Build
+## Build/Run
 
 ```
 $ cargo run
