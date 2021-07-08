@@ -8,6 +8,7 @@ mod utils;
 fn main() {
     rocket::ignite()
         .mount("/", routes![
+            utils::health,
             records::get_records,
             records::get_records_by_id,
             records::create_record,
