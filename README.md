@@ -13,6 +13,7 @@ VRS documentation, please see [here](https://github.com/open-voice-network/docs/
 - Download [Rust](https://www.rust-lang.org/tools/install)
 - Framework: Rockets
 - ORM: Diesel
+- Log: Log, Log4rs
 
 ## Optional
 
@@ -22,6 +23,9 @@ VRS documentation, please see [here](https://github.com/open-voice-network/docs/
 ```sh
 cargo install cargo-watch
 ```
+## Log
+- Log configuration file is log4rs.yml. A good [log4rs understanding](https://www.programmersought.com/article/83816316972/) and [log](https://docs.rs/log/0.4.6/log/).
+- Please follow this [logging guidelines](https://betterprogramming.pub/production-grade-logging-in-rust-applications-2c7fffd108a6)
 
 ## Build/Run
 
