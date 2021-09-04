@@ -1,12 +1,27 @@
 [package]
 name = "vrs"
-version = "0.1.0"
 authors = ["maridob <maria.brinas-dobrowski@target.com>", "John Trammell <john.trammell@target.com>"]
+version = "0.1.0"
 edition = "2018"
 
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
 [dependencies]
-rocket = "^0.4"
-serde_json = "1.0"
-rocket_contrib = { version = "^0.4", default-features = false, features = ["json"] }
+anyhow = "1.0.34"
+chrono = { version = "0.4.19", features = ["serde"] }
+dotenv = "0.15.0"
+jsonwebtoken = "7.2.0"
+r2d2 = "0.8.9"
+r2d2-mongodb = "0.2.2"
+rand = "0.7.3"
+rocket = "0.4.8"
+rocket_contrib = { version = "0.4.8", features = ["helmet", "uuid"] }
+rust-argon2 = "0.8.2"
+serde = { version = "1.0.117", features = ["derive"] }
+uuid = { version = "0.8.1", features = ["serde", "v4"] }
 log = "0.4"
 log4rs = "0.8"
+
+[dev-dependencies]
+lazy_static = "1.4.0"
+serde_json = "1.0.59"
