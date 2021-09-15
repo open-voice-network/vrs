@@ -121,7 +121,11 @@ pub fn update_record(connection: Conn, record: Json<InsertableRecord>, id: Uuid,
                             
                                 // TODO: check the security
                                 
-                                let insertable = found_record.update_record(&record.url, &record.name, &record.location, &record.destination_endpoint, &record.status);
+                                let insertable = found_record.update_record(&record.domain_url, &record.invocation_name, &record.organization_name,
+                                    &record.organization_registrant, &record.organization_email, 
+                                    &record.organization_address, &record.organization_city, &record.organization_country,
+                                    &record.registered_date, &record.expiration_date,
+                                    &record.location, &record.destination_url, &record.status);
                                 match bson::to_bson(&insertable) {
                                     Ok(serialized) => {
                                         let document = serialized.as_document().unwrap();
