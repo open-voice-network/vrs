@@ -7,7 +7,7 @@ use anyhow::Result as AnyResult;
 use jsonwebtoken::{DecodingKey, EncodingKey, Validation};
 use jsonwebtoken::errors::ErrorKind;
 
-const SECRET: &str = "secret297152aebda7"; // Change this to whatever your own
+const SECRET: &str = "verysecretk3y"; //temporary
 
 #[derive(Debug, PartialEq, Serialize, Deserialize)]
 struct Claims {

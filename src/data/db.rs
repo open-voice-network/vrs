@@ -56,6 +56,16 @@ impl Record {
     }
     // Record::new(insertable.url, insertable.name, insertable.registered_date, insertable.expiration_date,
 
+    pub fn update_record(&mut self, url: &String,name: &String, location: &String,destination_endpoint: &String, status: &String) -> Self {
+        self.url = url.to_string();
+        self.name = name.to_string();
+        self.location = location.to_string();
+        self.destination_endpoint = destination_endpoint.to_string();
+        self.status = status.to_string();
+        self.updated = Utc::now();
+        self.to_owned()
+    }
+
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
