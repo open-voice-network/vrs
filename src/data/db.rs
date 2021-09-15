@@ -6,6 +6,86 @@ use rand::distributions::Alphanumeric;
 use chrono::{DateTime, Utc};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Record {
+
+    #[serde(rename = "_id")]
+    pub id: Uuid,
+    pub url: String,
+    pub name: String,
+    // pub registered_date: DateTime<Utc>,
+    // pub expiration_date: DateTime<Utc>,
+    pub location: String,
+    pub destination_endpoint: String,
+    pub status: String,
+    pub created: DateTime<Utc>,
+    pub updated: DateTime<Utc>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct InsertableRecord {
+    pub url: String,
+    pub name: String,
+    // pub registered_date: DateTime<Utc>,
+    // pub expiration_date: DateTime<Utc>,
+    pub location: String,
+    pub destination_endpoint: String,
+    pub status: String,
+}
+
+impl Record {
+    pub fn new(url:String, name: String, 
+        // registered_date: DateTime<Utc>, expiration_date: DateTime<Utc>, 
+        location:String, destination_endpoint:String, status:String) -> Self {
+
+        Record {
+            id: Uuid::new_v4(),
+            url,
+            name,
+            // registered_date,
+            // expiration_date,
+            location,
+            destination_endpoint,
+            status,
+            created: Utc::now(),
+            updated: Utc::now(),
+        }
+    }
+    pub fn from_insertable(insertable: InsertableRecord) -> Self {
+        Record::new(insertable.url, insertable.name,
+        insertable.location, insertable.destination_endpoint, insertable.status)
+    }
+    // Record::new(insertable.url, insertable.name, insertable.registered_date, insertable.expiration_date,
+
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct ResponseRecord {
+    pub id: String,
+    pub url: String,
+    pub name: String,
+    // pub registered_date: DateTime<Utc>,
+    // pub expiration_date: DateTime<Utc>,
+    pub location: String,
+    pub destination_endpoint: String,
+    pub status: String,
+}
+
+impl ResponseRecord{
+    pub fn from_record(record: &Record)-> Self {
+        ResponseRecord{
+            id: record.id.to_string(),
+            url: format!("{}", record.url),
+            name: format!("{}", record.name),
+            // registered_date: record.registered_date,
+            // expiration_date: record.expiration_date,
+            location: format!("{}", record.location),
+            destination_endpoint: format!("{}", record.destination_endpoint),
+            status: format!("{}", record.status),
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct User {
     #[serde(rename = "_id")]
     pub id: Uuid,
@@ -68,6 +148,7 @@ pub struct ResponseUser {
     pub name: String,
     pub email: String,
 }
+
 impl ResponseUser{
     pub fn from_user(user: &User)-> Self {
         ResponseUser{
@@ -79,7 +160,7 @@ impl ResponseUser{
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct UserPassword {
+pub struct  UserPassword {
     pub password: String,
     pub new_password: Option<String>,
 }
