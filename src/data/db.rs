@@ -6,6 +6,143 @@ use rand::distributions::Alphanumeric;
 use chrono::{DateTime, Utc};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct Record {
+
+    #[serde(rename = "_id")]
+    pub id: Uuid,
+    pub domain_url: String,
+    pub invocation_name: String,
+    pub organization_name: String,
+    pub organization_registrant: String,
+    pub organization_email: String,
+    pub organization_address: String,
+    pub organization_city: String,
+    pub organization_country: String,
+    pub registered_date: DateTime<Utc>,
+    pub expiration_date: DateTime<Utc>,
+    pub location: String,
+    pub destination_url: String,
+    pub status: String,
+    pub created: DateTime<Utc>,
+    pub updated: DateTime<Utc>,
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct InsertableRecord {
+    pub domain_url: String,
+    pub invocation_name: String,
+    pub organization_name: String,
+    pub organization_registrant: String,
+    pub organization_email: String,
+    pub organization_address: String,
+    pub organization_city: String,
+    pub organization_country: String,
+    pub registered_date: DateTime<Utc>,
+    pub expiration_date: DateTime<Utc>,
+    pub location: String,
+    pub destination_url: String,
+    pub status: String,
+}
+
+impl Record {
+    pub fn new(domain_url:String, invocation_name:String, 
+        organization_name: String, organization_registrant: String,organization_email: String, 
+        organization_address: String, organization_city: String, organization_country: String,  
+        registered_date: DateTime<Utc>, expiration_date: DateTime<Utc>, 
+        location:String, destination_url:String, status:String) -> Self {
+
+        Record {
+            id: Uuid::new_v4(),
+            domain_url,
+            invocation_name,
+            organization_name,
+            organization_registrant,
+            organization_email,
+            organization_address,
+            organization_city,
+            organization_country,
+            registered_date,
+            expiration_date,
+            location,
+            destination_url,
+            status,
+            created: Utc::now(),
+            updated: Utc::now(),
+        }
+    }
+    pub fn from_insertable(insertable: InsertableRecord) -> Self {
+        // Record::new(insertable.domain_url, insertable.organization_name,
+        Record::new(insertable.domain_url, insertable.invocation_name, insertable.organization_name, 
+            insertable.organization_registrant, insertable.organization_email, insertable.organization_address, insertable.organization_city, insertable.organization_country,
+            insertable.registered_date, insertable.expiration_date,
+            insertable.location, insertable.destination_url, insertable.status)
+    }
+    
+
+    pub fn update_record(&mut self,  domain_url: &String,invocation_name: &String, organization_name: &String, 
+        organization_registrant: &String, organization_email: &String, organization_address: &String,
+        organization_city: &String, organization_country: &String,
+        registered_date: &DateTime<Utc>, expiration_date: &DateTime<Utc>,
+        location: &String,destination_url: &String, status: &String) -> Self {
+        self.domain_url = domain_url.to_string();
+        self.invocation_name = invocation_name.to_string();
+        self.organization_name = organization_name.to_string();
+        self.organization_registrant = organization_registrant.to_string();
+        self.organization_email = organization_email.to_string();
+        self.organization_address = organization_address.to_string();
+        self.organization_city = organization_city.to_string();
+        self.organization_country = organization_country.to_string();
+        self.location = location.to_string();
+        self.destination_url = destination_url.to_string();
+        self.registered_date = *registered_date;
+        self.expiration_date = *expiration_date;
+        self.status = status.to_string();
+        self.updated = Utc::now();
+        self.to_owned()
+    }
+
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
+pub struct ResponseRecord {
+    pub id: String,
+    pub domain_url: String,
+    pub invocation_name: String,
+    pub organization_name: String,
+    pub organization_registrant: String,
+    pub organization_email: String,
+    pub organization_address: String,
+    pub organization_city: String,
+    pub organization_country: String,
+    pub registered_date: DateTime<Utc>,
+    pub expiration_date: DateTime<Utc>,
+    pub location: String,
+    pub destination_url: String,
+    pub status: String,
+}
+
+impl ResponseRecord{
+    pub fn from_record(record: &Record)-> Self {
+        ResponseRecord{
+            id: record.id.to_string(),
+            domain_url: format!("{}", record.domain_url),
+            invocation_name: format!("{}", record.invocation_name),
+            organization_name: format!("{}", record.organization_name),
+            organization_registrant: format!("{}", record.organization_registrant),
+            organization_email: format!("{}", record.organization_email),
+            organization_address: format!("{}", record.organization_address),
+            organization_city: format!("{}", record.organization_city),
+            organization_country: format!("{}", record.organization_country),
+            registered_date: record.registered_date,
+            expiration_date: record.expiration_date,
+            location: format!("{}", record.location),
+            destination_url: format!("{}", record.destination_url),
+            status: format!("{}", record.status),
+        }
+    }
+}
+
+#[derive(Serialize, Deserialize, Debug, Clone)]
 pub struct User {
     #[serde(rename = "_id")]
     pub id: Uuid,
@@ -68,6 +205,7 @@ pub struct ResponseUser {
     pub name: String,
     pub email: String,
 }
+
 impl ResponseUser{
     pub fn from_user(user: &User)-> Self {
         ResponseUser{
@@ -79,7 +217,7 @@ impl ResponseUser{
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
-pub struct UserPassword {
+pub struct  UserPassword {
     pub password: String,
     pub new_password: Option<String>,
 }
