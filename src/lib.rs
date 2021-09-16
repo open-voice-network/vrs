@@ -25,6 +25,7 @@ pub fn rocket_builder() -> rocket::Rocket {
     .mount("/api", routes![
         routes::records::get_records,
         routes::records::get_records_by_id,
+        routes::records::get_records_by_invocation_name,
         routes::records::create_record,
         routes::records::delete_record,
         routes::records::update_record,

@@ -53,6 +53,26 @@ pub fn get_records_by_id(connection: Conn, id: Uuid, _guard : JwtGuard) -> ApiRe
     }
 }
 
+#[get("/records/<invocation_name>",rank = 2)]
+pub fn get_records_by_invocation_name(connection: Conn, invocation_name: String, _guard : JwtGuard) -> ApiResponse {
+    let record_coll = &connection.collection(COLLECTION);
+    match record_coll.find_one(Some(doc! { "invocation_name": invocation_name.clone() }), None) {
+        Ok(find_one) => {
+            match find_one {
+                Some(found_record) => {
+                    let found_record_doc: Result<Record, _> = bson::from_bson(Bson::Document(found_record));
+                    match found_record_doc {
+                        Ok(found_record) => ApiResponse::ok(json!(ResponseRecord::from_record(&found_record))),
+                        Err(_) => ApiResponse::internal_err(),
+                    }
+                }
+                None => ApiResponse::err(json!(format!("Invocation name {} not found",  invocation_name)))
+            }
+        },
+        Err(_) => ApiResponse::internal_err(),
+    }
+}
+
 #[post("/records", format = "json", data = "<record>")]
 pub fn create_record(connection: Conn, record: Json<InsertableRecord>) -> ApiResponse {
     let record_coll = &connection.collection(COLLECTION);
