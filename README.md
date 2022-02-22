@@ -32,6 +32,17 @@ cargo install cargo-watch
 
 ## Build/Run
 
+1. Add .env file in the root folder
+2. Set-up your database settings.
+
+```
+MONGODB_ADDRESS=[address]
+MONGODB_PORT=[portnumber]
+MONGODB_DATABASE=[yourdatabase]
+MONGODB_USER=[username]
+MONGODB_PASSWORD=[password]
+```
+3. Run the application
 ```sh
 cargo run
 ```
