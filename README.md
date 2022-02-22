@@ -43,6 +43,8 @@ MONGODB_USER=[username]
 MONGODB_PASSWORD=[password]
 ```
 3. Run the application
+
+
 ```sh
 cargo run
 ```
