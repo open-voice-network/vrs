@@ -59,7 +59,9 @@ cargo watch -x run
 
 ```sh
 docker build --progress=plain --tag open-voice-network/vrs:0.0.1 .
-docker run -p 8000:8000 open-voice-network/vrs:0.0.1
+
+docker run --env-file ./.env -p 8000:8000 open-voice-network/vrs:0.0.1
+
 ```
 
 Once the VRS container is running, check out the following URLs:

@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  rust: 
+    build:
+      context: .
+      dockerfile: './Dockerfile'
+    container_name: rust
+    environment:
+      - MONGODB_ADDRESS=mongodb
+      - MONGODB_PORT=27017
+      - MONGODB_DATABASE=vrs-dev
+    depends_on:
+      - mongodb
+    ports:
+      - "8000:8000"
+  mongodb:
+    image: mongo:3.6.9-stretch
+    container_name: mongodb
+    restart: always
+    volumes:
+      - mongodb:/data/db
+    ports:
+      - 27017:27017
+    
+    
+volumes:
+  mongodb: 

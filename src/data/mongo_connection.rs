@@ -50,15 +50,21 @@ pub fn init_pool() -> Pool {
     let mongodb_address = env::var("MONGODB_ADDRESS").expect("MONGODB_ADDRESS missing");
     let mongodb_port = env::var("MONGODB_PORT").expect("MONGODB_PORT missing");
     let database = env::var("MONGODB_DATABASE").expect("MONGODB_DATABASE missing");
-    //let mongodb_user = env::var("MONGODB_USER").expect("MONGODB_USER missing");
-    //let mongodb_password = env::var("MONGODB_PASSWORD").expect("MONGODB_PASSWORD missing");
+    // let mongodb_user = env::var("MONGODB_USER").expect("MONGODB_USER missing");
+    // let mongodb_password = env::var("MONGODB_PASSWORD").expect("MONGODB_PASSWORD missing");
     let manager = MongodbConnectionManager::new(
         ConnectionOptions::builder()
             .with_host(&mongodb_address, mongodb_port.parse::<u16>().unwrap())
             .with_db(&database)
-            //.with_auth(mongodb_user, mongodb_password)
+            // .with_auth("root", "password")
+            //.with_auth(&mongodb_user, &mongodb_password)
             .build(),
     );
+
+    
+    
+
+
     match Pool::builder().max_size(64).build(manager) {
         Ok(pool) => pool,
         Err(e) => panic!("Error: failed to create database pool {}", e),
