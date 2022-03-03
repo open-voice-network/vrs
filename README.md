@@ -32,6 +32,8 @@ cargo install cargo-watch
 
 ## Build/Run
 
+   NOTE: You will only do the .env file if you want to run without Docker. 
+
 1. Add .env file in the root folder
 2. Set-up your database settings.
 
@@ -59,7 +61,10 @@ cargo watch -x run
 
 ```sh
 docker build --progress=plain --tag open-voice-network/vrs:0.0.1 .
-docker run -p 8000:8000 open-voice-network/vrs:0.0.1
+
+docker-compose build
+
+docker-compose up
 ```
 
 Once the VRS container is running, check out the following URLs:
