@@ -6,6 +6,7 @@ services:
       context: .
       dockerfile: './Dockerfile'
     container_name: rust
+    restart: always
     environment:
       - MONGODB_ADDRESS=mongodb
       - MONGODB_PORT=27017
